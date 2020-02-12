@@ -18,33 +18,19 @@ $ npm i @webb/test -D
 import Test from "@webb/test";
 
 const test = Test("Name of your test");
-let count = 0;
 
-test.before(incr);
-test("A", incr);
-test.skip("B", incr);
+test("Add user", async() => {
+  const user = await app.addUser("test@cc.com");
+  assert.equals(user.name, "Test");
+})
 
-test("rejects", async() => {
+test("Reject duplicate emails", async() => {
   await assert.rejects(async() => {
-    throw new TypeError("Oops");
-  }, {
-    name: "TypeError",
-    message: "Oops"
+    await app.addUser("duplicate@address.com");
   });
 });
 
-!(async() => {
-  try {
-    await test.run();
-    assert.equal(count, 3);
-  } finally {
-    process.exit();
-  }
-})();
-
-function incr() {
-  count++;
-}
+test.run();
 ```
 
 
