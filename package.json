@@ -4,10 +4,11 @@
     "url": "https://webb.page"
   },
   "dependencies": {
-    "@webb/console": "^2020.3.9"
+    "@webb/console": "^2020.3.10"
   },
   "description": "Tiny, simple test runner",
   "devDependencies": {
+    "@webb/config-nyc": "^2020.3.1-0.2",
     "@webb/config-prettier": "^2020.3.9",
     "chronver": "^2020.3.9",
     "del-cli": "^3.0.0",
@@ -17,7 +18,7 @@
     "prettier": "^1.19.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3",
-    "updates": "^10.2.0"
+    "updates": "^10.2.2"
   },
   "homepage": "https://code.webb.page/Webb/test",
   "husky": {
@@ -41,8 +42,9 @@
     "test": "run-s test:*",
     "test:dependencies": "updates --update ./",
     "test:typescript": "tsc",
-    "test:assert": "tsc && ts-node test/index.ts"
+    "test:assert": "tsc && ts-node test/index.ts",
+    "test:coverage": "nyc npm run test:assert"
   },
   "types": "dist/index.d.ts",
-  "version": "2020.03.09"
+  "version": "2020.03.11"
 }
