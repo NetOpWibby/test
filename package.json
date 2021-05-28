@@ -4,28 +4,22 @@
     "url": "https://webb.page"
   },
   "dependencies": {
-    "@webb/console": "^2020.8.4"
+    "@webb/console": "^2021.5.28"
   },
   "description": "Tiny, simple test runner",
   "devDependencies": {
-    "@webb/config-nyc": "^2020.4.16",
-    "@webb/config-prettier": "^2020.4.16",
+    "@webb/config-nyc": "^2021.5.28",
+    "@webb/config-prettier": "^2021.5.28",
     "chronver": "^2020.6.18",
     "del-cli": "^3.0.1",
-    "eslint": "^7.17.0",
-    "husky": "^4.3.7",
+    "husky": "^6.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.3",
-    "updates": "^11.4.2"
+    "prettier": "^2.3.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2",
+    "updates": "^12.1.0"
   },
   "homepage": "https://github.com/NetOperatorWibby/test",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run build && npm run pretty && npm run increment && git add -A :/"
-    }
-  },
   "license": "MIT",
   "main": "dist/index.js",
   "name": "@webb/test",
@@ -38,6 +32,7 @@
     "build": "npm run cleanup && tsc",
     "cleanup": "del './dist'",
     "increment": "chronver --increment package",
+    "pre-commit": "npm run build && npm run pretty && npm run increment && git add -A :/",
     "pretty": "prettier --write 'dist/**/*.js' 'dist/**/*.ts'",
     "test": "run-s test:*",
     "test:dependencies": "updates --update ./",
@@ -46,5 +41,5 @@
     "test:coverage": "nyc npm run test:assert"
   },
   "types": "dist/index.d.ts",
-  "version": "2021.01.06.2"
+  "version": "2021.05.28"
 }

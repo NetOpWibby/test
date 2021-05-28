@@ -39,7 +39,7 @@ export default (headline: string) => {
           await fn();
 
         await test.fn();
-        output.push(print.gray(" •"));
+        output.push(print.white(" ●"));
       } catch(e) {
         for (const fn of after)
           await fn();

@@ -97,3 +97,30 @@ test.skip("invite a friend", async() => {
 ### test.run()
 
 Run all the supplied tests.
+
+
+
+## Tests
+
+```sh
+# Run all tests, sequentially
+$ npm test
+
+# Test dependencies for latest versions
+$ npm run test:dependencies
+
+# Lint "src" directory
+$ npm run test:typescript
+
+# Test this module
+$ npm run test:assert
+
+# Not really a test, just shows a 20x9 rainbow-esque banner
+$ npm run showcase
+```
+
+
+
+## Support
+
+I don't drink coffee so if you like this module and want to support me, feel free to send some HNS to `hs1q98ddwl2lcpnnzfvvrqad80qu97w0q72cyq2uy3`!
