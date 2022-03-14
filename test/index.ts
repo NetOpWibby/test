@@ -1,26 +1,43 @@
 
 
 
-//  N A T I V E
+///  N A T I V E
 
 import assert from "assert";
 
-//  U T I L
+///  U T I L
 
-import Test from "../dist";
+import defaultExport, { test } from "../dist";
 
 
 
-//  T E S T S
+///  T E S T
 
-const test = Test("@webb/test");
-let count = 0;
+const testDefaultExport = defaultExport("@webb/test");
+const testNamedExport = test("@webb/test, named export");
 
-test.before(incr);
-test("A", incr);
-test.skip("B", incr);
+let testDefaultExportCount = 0;
+let testNamedExportCount = 0;
 
-test("rejects", async() => {
+testDefaultExport.before(incrementDefaultExport);
+testNamedExport.before(incrementNamedExport);
+
+testDefaultExport("A", incrementDefaultExport);
+testNamedExport("A", incrementNamedExport);
+
+testDefaultExport.skip("B", incrementDefaultExport);
+testNamedExport.skip("B", incrementNamedExport);
+
+testDefaultExport("rejects", async() => {
+  await assert.rejects(async() => {
+    throw new TypeError("Oops");
+  }, {
+    name: "TypeError",
+    message: "Oops"
+  });
+});
+
+testNamedExport("rejects", async() => {
   await assert.rejects(async() => {
     throw new TypeError("Oops");
   }, {
@@ -31,8 +48,10 @@ test("rejects", async() => {
 
 !(async() => {
   try {
-    await test.run();
-    assert.equal(count, 3);
+    await testDefaultExport.run();
+    await testNamedExport.run();
+    assert.equal(testDefaultExportCount, 3);
+    assert.equal(testNamedExportCount, 3);
   } finally {
     process.exit();
   }
@@ -40,8 +59,12 @@ test("rejects", async() => {
 
 
 
-//  H E L P E R
+///  H E L P E R
 
-function incr() {
-  count++;
+function incrementDefaultExport() {
+  testDefaultExportCount++;
+}
+
+function incrementNamedExport() {
+  testNamedExportCount++;
 }

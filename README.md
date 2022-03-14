@@ -7,30 +7,31 @@
 ## Install
 
 ```sh
-$ npm i @webb/test -D
+npm i @webb/test -D
 ```
 
 
 
 ## Usage
 
-```js
-import Test from "@webb/test";
+```ts
+import { test } from "@webb/test"; // use the named export...
+import Test from "@webb/test";     // or, the default and name it whatever you want
 
-const test = Test("Name of your test");
+const myTest = test("Name of your test");
 
-test("Add user", async() => {
+myTest("Add user", async() => {
   const user = await app.addUser("test@cc.com");
   assert.equals(user.name, "Test");
 })
 
-test("Reject duplicate emails", async() => {
+myTest("Reject duplicate emails", async() => {
   await assert.rejects(async() => {
     await app.addUser("duplicate@address.com");
   });
 });
 
-test.run();
+myTest.run();
 ```
 
 
@@ -53,7 +54,7 @@ Type: `function`
 
 Run only these tests and ignore the rest.
 
-```js
+```ts
 // Test the actively developed function
 test.only("add team", async() => {
   const team = await app.addTeam("Acme Inc.");
@@ -66,8 +67,8 @@ Type: `function`
 
 Run the given function before all the supplied tests.
 
-```js
-// Remove all data prior each run
+```ts
+// Remove all data prior to each run
 test.before(async() => {
   await app.cluster.clearAll();
 });
@@ -87,8 +88,8 @@ Type: `function`
 
 Skip the given function. Useful for omitting tests temporarily.
 
-```js
-// Ignore slow, broken, or incomplete stuff
+```ts
+// Ignore slow, broken, or incomplete functions
 test.skip("invite a friend", async() => {
   // TODO
 });
@@ -104,23 +105,14 @@ Run all the supplied tests.
 
 ```sh
 # Run all tests, sequentially
-$ npm test
+npm test
 
 # Test dependencies for latest versions
-$ npm run test:dependencies
+npm run test:dependencies
 
 # Lint "src" directory
-$ npm run test:typescript
+npm run test:lint
 
 # Test this module
-$ npm run test:assert
-
-# Not really a test, just shows a 20x9 rainbow-esque banner
-$ npm run showcase
+npm run test:lint-assert
 ```
-
-
-
-## Support
-
-I don't drink coffee so if you like this module and want to support me, feel free to send some HNS to `hs1q98ddwl2lcpnnzfvvrqad80qu97w0q72cyq2uy3`!

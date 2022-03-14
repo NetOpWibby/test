@@ -1,15 +1,17 @@
 
 
 
-//  I M P O R T
+///  I M P O R T
 
 import print from "@webb/console";
 
 
 
-//  E X P O R T
+///  E X P O R T
 
-export default (headline: string) => {
+export default test;
+
+export function test(headline: string) {
   const after: any[] = [];
   const before: any[] = [];
   const only: any[] = [];
@@ -39,13 +41,13 @@ export default (headline: string) => {
           await fn();
 
         await test.fn();
-        output.push(print.white(" ●"));
+        output.push(" ●");
       } catch(e) {
         for (const fn of after)
           await fn();
 
-        output.push(print.red(`\n\n! ${test.name} \n\n`));
-        console.log(output.join(""));
+        output.push(print.invert(`\n\n! ${test.name} \n\n`));
+        process.stdout.write(output.join("") + "\n");
         prettyError(e);
 
         return false;
@@ -55,8 +57,8 @@ export default (headline: string) => {
     for (const fn of after)
       await fn();
 
-    output.push(" " + print.greenLine(print.black(` ✓ ${ tests.length } `)) + "\n");
-    console.log(output.join(""));
+    output.push(" " + print.invert(` ✓ ${ tests.length } `) + "\n");
+    process.stdout.write(output.join("") + "\n");
   }
 
   return self;
@@ -64,16 +66,16 @@ export default (headline: string) => {
 
 
 
-//  H E L P E R
+///  H E L P E R
 
 function prettyError(e: any) {
   const msg = e.stack;
 
   if (!msg)
-    return console.log(print.yellow(e));
+    return process.stdout.write(print.bold(e) + "\n");
 
   const i = msg.indexOf("\n");
 
-  console.log(print.yellowLine(print.black(msg.slice(0, i))));
-  console.log(print.gray(msg.slice(i)));
+  process.stdout.write(print.bold(msg.slice(0, i)) + "\n");
+  process.stdout.write(print.dim(msg.slice(i)) + "\n");
 }
